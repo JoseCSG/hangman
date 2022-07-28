@@ -21,21 +21,8 @@ int main(){
     {
         std::cout<<"_ ";
     }
-
-    for (auto &&i : Palabras[0])
-    {
-        for (int g = 0; g < 28; g++)
-        {
-            if (i==letras_usadas[g])
-            {
-                std::cout<<"ojala funciones";
-            }
-            
-        }  
-        
-    }
     char letra;
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 2; i++)
     {
         std::cin>>letra;
         add_word(letras_usadas,letra);
@@ -43,6 +30,19 @@ int main(){
     for (auto &&i : letras_usadas)
     {
         std::cout<<i<<" ";
+        std::cout<<"\n";
+    }
+    
+    for (int i = 0; i < Palabras[0].length(); i++)
+    {
+        if (Palabras[0][i]==letras_usadas.back())
+        {
+            std::cout<<Palabras[0][i]<<" ";
+        }
+        else
+        {
+            std::cout<<"_ ";
+        }   
     }
     
     
