@@ -152,8 +152,8 @@ int main(){
     std::vector <char> letras_usadas;
     std::vector <char> palabra_incognita;
     char letra;
-    int random= rand()%3,errores=0;
-    std::string palabra_adivinar = Palabras[9];
+    int random= rand()%10,errores=0;
+    std::string palabra_adivinar = Palabras[random];
     prepare_vector(palabra_incognita,palabra_adivinar);
     std::cout<<"La palabra a adivinar es: "<<"\n";
     show_incognito(palabra_incognita);
