@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <time.h>
+#include <cstdlib>
 
 void add_word(std::vector <char>& letras,char letra)
 {
@@ -31,48 +33,36 @@ void show_letras_usadas(std::vector <char>& letras_usadas)
     }
     std::cout<<"\n";
 }
+void prepare_vector(std::vector <char>& incognita, std::string palabra)
+{
+    for (int i = 0; i < palabra.length(); i++)
+    {
+        incognita.push_back('_');
+    }
+    
+}
 int main(){
-
+    srand(time(0));
     std::string Palabras[3]= {"autos","perros","animales"};
     std::vector <char> letras_usadas;
     std::vector <char> palabra_incognita;
-    
-    for (auto &&i : Palabras[0])
-    {
-        std::cout<<i<<" ";
-    }    
-    int i=0;
-    for (int i = 0; i < Palabras[0].length(); i++)
-    {
-        palabra_incognita.push_back('_');
-    }
-    
-    
     char letra;
+    int random= rand()%3,errores=0;
+    std::string palabra_adivinar = Palabras[random];
+    prepare_vector(palabra_incognita,palabra_adivinar);
 
-    
-    /*for (int i = 0; i < Palabras[0].length(); i++)
-    {
-        if (Palabras[0][i]==letras_usadas.back())
-        {
-            std::cout<<Palabras[0][i]<<" ";
-        }
-        else
-        {
-            std::cout<<"_ ";
-            
-        }   
-    }*/
-    /*show_incognito(palabra_incognita);*/
+
+
+
     std::cout<<"Write a letter"<<std::endl;
     std::cin>>letra;
     add_word(letras_usadas,letra);
-    change_incognito(palabra_incognita,letras_usadas.back(),Palabras[0]);
+    change_incognito(palabra_incognita,letras_usadas.back(),palabra_adivinar);
     show_incognito(palabra_incognita);
     std::cout<<"Write a letter"<<std::endl;
     std::cin>>letra;
     add_word(letras_usadas,letra);
-    change_incognito(palabra_incognita,letras_usadas.back(),Palabras[0]);
+    change_incognito(palabra_incognita,letras_usadas.back(),palabra_adivinar);
     show_incognito(palabra_incognita);
     show_letras_usadas(letras_usadas);
     
