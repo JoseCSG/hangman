@@ -22,9 +22,7 @@ void change_incognito(std::vector <char>& incognita,char letra, std::string pala
     if (!changed)
     {
         vidas++;
-    }
-    
-    
+    }  
 }
 void show_incognito(std::vector <char>& incognita)
 {
@@ -34,8 +32,25 @@ void show_incognito(std::vector <char>& incognita)
     }
     std::cout<<"\n";
 }
+void sort_letras_usadas(std::vector <char>& letras_usadas)
+{
+    char temp;
+    for (int i = 0; i < letras_usadas.size(); i++)
+    {
+        for (int j = i+1; j < letras_usadas.size(); j++)
+        {
+            if (letras_usadas[i]>letras_usadas[j])
+            {
+                temp=letras_usadas[i];
+                letras_usadas[i]=letras_usadas[j];
+                letras_usadas[j]=temp;
+            }
+        }
+    }
+}
 void show_letras_usadas(std::vector <char>& letras_usadas)
 {
+    sort_letras_usadas(letras_usadas);
     for (int i = 0; i < letras_usadas.size(); i++)
     {
         std::cout<<letras_usadas[i]<<" ";
@@ -72,7 +87,7 @@ void show_lifes(int& vidas)
     case 1:
         std::cout<<"____"<<std::endl;
         std::cout<<"|   |"<<std::endl;
-        std::cout<<"|   0"<<std::endl;
+        std::cout<<"|   o"<<std::endl;
         std::cout<<"|"<<std::endl;
         std::cout<<"|"<<std::endl;
         std::cout<<"|"<<std::endl;
@@ -80,7 +95,7 @@ void show_lifes(int& vidas)
     case 2:
         std::cout<<"____"<<std::endl;
         std::cout<<"|   |"<<std::endl;
-        std::cout<<"|   0"<<std::endl;
+        std::cout<<"|   o"<<std::endl;
         std::cout<<"|   |"<<std::endl;
         std::cout<<"|"<<std::endl;
         std::cout<<"|"<<std::endl;
@@ -88,7 +103,7 @@ void show_lifes(int& vidas)
     case 3:
         std::cout<<"____"<<std::endl;
         std::cout<<"|   |"<<std::endl;
-        std::cout<<"|   0"<<std::endl;
+        std::cout<<"|   o"<<std::endl;
         std::cout<<"|  /|"<<aux<<std::endl;
         std::cout<<"|"<<std::endl;
         std::cout<<"|"<<std::endl;
@@ -96,7 +111,7 @@ void show_lifes(int& vidas)
     case 4:
         std::cout<<"____"<<std::endl;
         std::cout<<"|   |"<<std::endl;
-        std::cout<<"|   0"<<std::endl;
+        std::cout<<"|   o"<<std::endl;
         std::cout<<"|  /|"<<aux<<std::endl;
         std::cout<<"|   /"<<std::endl;
         std::cout<<"|"<<std::endl;
@@ -104,7 +119,7 @@ void show_lifes(int& vidas)
     case 5:
         std::cout<<"____"<<std::endl;
         std::cout<<"|   |"<<std::endl;
-        std::cout<<"|   0"<<std::endl;
+        std::cout<<"|   o"<<std::endl;
         std::cout<<"|  /|"<<aux<<std::endl;
         std::cout<<"|   /"<<aux<<std::endl;
         std::cout<<"|"<<std::endl;
@@ -120,7 +135,6 @@ void show_word(std::string& palabra)
         std::cout<<i;
     }
     std::cout<<"\n";
-    
 }
 bool word_is_guessed(std::vector <char>& incognita)
 {
@@ -133,7 +147,6 @@ bool word_is_guessed(std::vector <char>& incognita)
     {
         return true;
     }
-    
 }
 bool been_used(std::vector <char>& letras_usadas, char& letra)
 {
@@ -146,18 +159,30 @@ bool been_used(std::vector <char>& letras_usadas, char& letra)
     }
     return false;
 }
+
 int main(){
     srand(time(0));
-    std::string Palabras[10]= {"autos","perros","animales","codigo","comida","brownie","pastel","alemania","valorant","diddy kong"};
+    std::string Palabras[10]= {"autos","perros","animales","codigo","comida","brownie","pastel","alemania","valorant","diddy kong"},palabra_adivinar;
     std::vector <char> letras_usadas;
     std::vector <char> palabra_incognita;
-    char letra;
+    char letra,opcion;
+    bool running=true;
     int random= rand()%10,errores=0;
-    std::string palabra_adivinar = Palabras[random];
+    std::cout<<"Quieres escoger la palabra? (y/n)"<<std::endl;
+    std::cin>>opcion;
+    if (opcion=='y')
+    {
+        std::cout<<"Cual va a ser la palabra?\n";
+        std::getline(std::cin>>std::ws,palabra_adivinar);
+    }
+    else
+    {
+        palabra_adivinar=Palabras[random];
+    }
     prepare_vector(palabra_incognita,palabra_adivinar);
     std::cout<<"La palabra a adivinar es: "<<"\n";
     show_incognito(palabra_incognita);
-    while (errores<5)
+    while (running)
     {
         show_lifes(errores);
         std::cout<<"Ingresa una letra: ";
@@ -186,12 +211,15 @@ int main(){
         {
             std::cout<<"No escribiste una letra"<<std::endl;
         }
+        std::cout<<"Has usado estas letras: ";
+        show_letras_usadas(letras_usadas);
     }
     if (errores==5)
     {
         show_lifes(errores);
         std::cout<<"La palabra era: ";
         show_word(palabra_adivinar); 
+        running=false;
     }
     
 
