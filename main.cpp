@@ -187,6 +187,7 @@ int main(){
         show_lifes(errores);
         std::cout<<"Ingresa una letra: ";
         std::cin>>letra;
+        system("cls");
         if (isalpha(letra))
         {
             if (!been_used(letras_usadas,letra))
@@ -213,14 +214,15 @@ int main(){
         }
         std::cout<<"Has usado estas letras: ";
         show_letras_usadas(letras_usadas);
+        if (errores==5)
+        {
+            show_lifes(errores);
+            std::cout<<"La palabra era: ";
+            show_word(palabra_adivinar); 
+            running=false;
+        }
     }
-    if (errores==5)
-    {
-        show_lifes(errores);
-        std::cout<<"La palabra era: ";
-        show_word(palabra_adivinar); 
-        running=false;
-    }
+
     
 
     system("pause");
