@@ -2,13 +2,14 @@
 #include <vector>
 #include <time.h>
 #include <cstdlib>
-#include <algorithm>
+#include <algorithm> //needed to use the find function
 
+//adds a letter to the used letters vector
 void add_word(std::vector <char>& letras,char letra)
 {
     letras.push_back(letra);
 }
-void change_incognito(std::vector <char>& incognita,char letra, std::string palabra,int& vidas)
+void change_incognito(std::vector <char>& incognita,char letra, std::string palabra,int& errores)
 {
     bool changed;
     for (int i = 0; i < incognita.size(); i++)
@@ -21,7 +22,7 @@ void change_incognito(std::vector <char>& incognita,char letra, std::string pala
     }
     if (!changed)
     {
-        vidas++;
+        errores++;
     }  
 }
 void show_incognito(std::vector <char>& incognita)
@@ -139,6 +140,7 @@ void show_word(std::string& palabra)
 bool word_is_guessed(std::vector <char>& incognita)
 {
     char key = '_';
+    //std::find looks in the vector if the character _ is still there
     if (std::find(incognita.begin(),incognita.end(),key) != incognita.end())
     {
         return false;
@@ -173,7 +175,7 @@ int main(){
     if (opcion=='y')
     {
         std::cout<<"Cual va a ser la palabra?\n";
-        std::getline(std::cin>>std::ws,palabra_adivinar);
+        std::getline(std::cin>>std::ws,palabra_adivinar); 
     }
     else
     {
@@ -222,9 +224,6 @@ int main(){
             running=false;
         }
     }
-
-    
-
     system("pause");
     return 0;
 }
